@@ -111,19 +111,19 @@ def vectorizer(tokenizer, iterations, max_df_options, min_df_options, ngram_rang
     
     start = time.time()
     print("Vectorizing Training Text...")
-    vec_list = []
-    for iter_vec in range(iterations):
-        #A complete search would be computationally heavy. Random search requires less computation. 
-        max_df = random.choice(max_df_options)
-        min_df = random.choice(min_df_options)
-        ngram_range = random.choice(ngram_range_options)
-        #Define vectorizor w/ random parameters
-        tfidf = TfidfVectorizer(tokenizer = tokenizer, max_df=max_df, min_df=min_df, ngram_range=ngram_range)
-        #Fit tfidf to the text data in our corpus and append to list of vectors. ngram_range is a list of tuples where for example (1,2) would apply a bigram search. 
-        vec = tfidf.fit_transform(X_train)
-        print(f'Iteration: {iter_vec +1} of {iterations} complete!')
-        #Generate dictionaries of vector information
-        vec_list.append({'vec_iter' = iterations, 'vec_id': len(vec_list)+1, 'vec':vec, 'tfidf':tfidf, 'vocab_length':len(tfidf.vocabulary_), 'max_df':max_df, 'min_df': min_df, 'ngram_range':ngram_range })   
+    #A complete search would be computationally heavy. Random search requires less computation. 
+    max_df = random.choice(max_df_options)
+    min_df = random.choice(min_df_options)
+    ngram_range = random.choice(ngram_range_options)
+    #Define vectorizor w/ random parameters
+    tfidf = TfidfVectorizer(tokenizer = tokenizer, max_df=max_df, min_df=min_df, ngram_range=ngram_range)
+    #Fit tfidf to the text data in our corpus and append to list of vectors. ngram_range is a list of tuples where for example (1,2) would apply a bigram search. 
+    vec = tfidf.fit_transform(X_train)
+    print(f'Iteration: {iter_vec +1} of {iterations} complete!')
+    #Generate dictionaries of vector information
+    vec_list.append({'vec_iter' : iterations, 'vec_id': len(vec_list)+1, 'vec':vec, 
+                         'tfidf':tfidf, 'vocab_length':len(tfidf.vocabulary_), 
+                         'max_df':max_df, 'min_df': min_df, 'ngram_range':ngram_range})   
     print(f"Compute time for vectorizor() of {iterations} iterations: {time.time() - start} seconds")
     return vec_list
 
