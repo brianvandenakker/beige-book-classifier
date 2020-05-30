@@ -108,7 +108,6 @@ def tokenizer(text):
 #Produces n tfidf vectorizations as defined by *iterations. 
 #max_df, min_df, ngram_range are lists of paramaters to be randomly searched. 
 def vectorizer(tokenizer, iterations, max_df_options, min_df_options, ngram_range_options):
-    
     start = time.time()
     print("Vectorizing Training Text...")
     #A complete search would be computationally heavy. Random search requires less computation. 
@@ -119,7 +118,6 @@ def vectorizer(tokenizer, iterations, max_df_options, min_df_options, ngram_rang
     tfidf = TfidfVectorizer(tokenizer = tokenizer, max_df=max_df, min_df=min_df, ngram_range=ngram_range)
     #Fit tfidf to the text data in our corpus and append to list of vectors. ngram_range is a list of tuples where for example (1,2) would apply a bigram search. 
     vec = tfidf.fit_transform(X_train)
-    print(f'Iteration: {iter_vec +1} of {iterations} complete!')
     #Generate dictionaries of vector information
     vec_list.append({'vec_iter' : iterations, 'vec_id': len(vec_list)+1, 'vec':vec, 
                          'tfidf':tfidf, 'vocab_length':len(tfidf.vocabulary_), 
