@@ -16,6 +16,7 @@ ngram_range = [(1,1), (1,2),(1,3)]
 model_performance = []
 clss = [-1, 0, 1]
 vec_list = []
+
 for cl in clss:
     #Constrain text to 50/50 true false split 
     df = classify_data(cl)
